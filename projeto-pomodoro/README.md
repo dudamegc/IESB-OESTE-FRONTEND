@@ -34,7 +34,7 @@ npm run dev
 ```
 
 O projeto estará disponível em:
-```bash
+```bash'
 http://localhost:5173
 ```
 🛠 **Tecnologias utilizadas**
