@@ -1,4 +1,3 @@
-
 //  EXERCÍCIO JSX
 // const mario = {
 //   cliente: 'Mario',
@@ -35,13 +34,7 @@
 //   );
 // };
 
-
 // export default App;
-
-
-
-
-
 
 //--------------------------------------------------------------------------
 //AULA JSX ARRAYS
@@ -78,7 +71,6 @@
 // };
 // export default App;
 
-
 //ex4 - objetos ------
 
 // const App = () => {
@@ -101,7 +93,6 @@
 //   );
 // };
 // export default App;
-
 
 //EXERCICÍO JSX ARRAYS
 // const produtos = [
@@ -149,11 +140,6 @@
 
 // export default App;
 
-
-
-
-
-
 //--------------------------------------------------------------------------
 //AULA EVENTOS
 //--------------------------------------------------------------------------
@@ -194,28 +180,101 @@
 // };
 // export default App;
 
-
-
-
-
-
-
-
 //--------------------------------------------------------------------------
 //AULA COMPONENTES
 //--------------------------------------------------------------------------
-import Header from './Header';
-import Footer from './Footer';
-import Form from './Form';
+// import Header from './Header';
+// import Footer from './Footer';
+// import Form from './Form/Form';
+// const App = () => {
+//   return (
+//     <div>
+//       <Header />
+//       <p>Esse é o meu aplicativo</p>
+//       <Footer />
+//       <Form />
+//     </div>
+//   );
+// };
+
+// export default App;
+
+//--------------------------------------------------------------------------
+//AULA PROPS
+//--------------------------------------------------------------------------
+
+// ex1 ------------
+// const Titulo = ({ cor, texto }) => {
+//   return <h1 style={{ color: cor }}>{texto}</h1>;
+// };
+
+// const App = () => {
+//   return (
+//     <section>
+//       <Titulo texto="Meu Primeiro Título" cor="blue" />
+//       <Titulo texto="Meu Segundo Título" cor="red" />
+//     </section>
+//   );
+// };
+// export default App;
+
+// ex2 ------------
+// const Titulo = (props) => {
+//   return <h1>{props.children}</h1>;
+// };
+
+// const App = () => {
+//   return (
+//     <section>
+//       <Titulo>Meu Primeiro Título</Titulo>
+//       <Titulo>
+//         <p>Título 2</p>
+//         <p>Título 3</p>
+//       </Titulo>
+//     </section>
+//   );
+// };
+// export default App;
+
+//ex3 ------------
+// import React from 'react';
+// import Header from './Header';
+// const App = () => {
+//   const logado = true;
+//   const nome = 'André';
+
+//   return (
+//     <section>
+//       <Header logado={logado} nome={nome} />
+//       <Form />
+//     </section>
+//   );
+// };
+// export default App;
+
+//--------------------------------------------------------------------------
+//DESAFIO COMPONENTES
+//--------------------------------------------------------------------------
+import React from 'react';
+import Header from './Desafio/Header';
+import Home from './Desafio/Home';
+import Produtos from './Desafio/Produtos';
 
 const App = () => {
+  const { pathname } = window.location;
+
+  let Component;
+  if (pathname === '/produtos') {
+    Component = Produtos;
+  } else {
+    Component = Home;
+  }
+
   return (
-    <div>
+    <section>
       <Header />
-      <p>Esse é o meu aplicativo</p>
-      <Footer />
-      <Form />
-    </div>
+      <Component />
+    </section>
   );
 };
 
