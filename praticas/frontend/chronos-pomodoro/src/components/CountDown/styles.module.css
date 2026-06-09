@@ -1,5 +1,16 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cat {
+  width: 150px;
+  margin-bottom: -2rem;
+}
+
 .container {
-  font-size: clamp(8rem, 30vw, 16rem); /* minimo, ideal, máximo*/
+  font-size: clamp(5rem, 10vw, 12rem);
   font-weight: bold;
   text-align: center;
   line-height: 1.3;

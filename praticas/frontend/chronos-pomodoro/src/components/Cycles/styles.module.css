@@ -12,20 +12,17 @@
 }
 
 .cycleDot {
-  width: 2rem;
-  height: 2rem;
-  background-color: var(--primary);
-  border-radius: 50%;
+  font-size: 2rem;
 }
 
 .workTime {
-  background: var(--warning);
+  color: var(--warning);
 }
 
 .shortBreakTime {
-  background: var(--primary);
+  color: var(--success);
 }
 
 .longBreakTime {
-  background: var(--info);
+  color: var(--info);
 }

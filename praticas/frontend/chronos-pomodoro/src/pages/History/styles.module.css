@@ -22,11 +22,12 @@
 }
 
 .responsiveTable th {
-  background-color: var(--gray-600);
+  background-color: var(--green-light);
 }
 
 .responsiveTable td {
-  background-color: var(--gray-800);
+  background-color: var(--creme);
+  color: var(--text)
 }
 
 .responsiveTable th,

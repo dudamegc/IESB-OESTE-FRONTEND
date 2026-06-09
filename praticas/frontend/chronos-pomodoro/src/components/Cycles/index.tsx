@@ -1,4 +1,5 @@
 import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
+import { PawPrint } from "lucide-react";
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
 import styles from './styles.module.css';
@@ -28,7 +29,7 @@ export function Cycles() {
               className={`${styles.cycleDot} ${styles[nextCycleType]}`}
               aria-label={`Indicador de ciclo de ${cycleDescriptionMap[nextCycleType]}`}
               title={`Indicador de ciclo de ${cycleDescriptionMap[nextCycleType]}`}
-            ></span>
+            ><PawPrint/></span>
           );
         })}
       </div>

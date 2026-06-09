@@ -28,51 +28,54 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
   });
 
   const playBeepRef = useRef<ReturnType<typeof loadBeep> | null>(null);
-  const worker = TimerWorkerManager.getInstance();
+  const workerRef = useRef<TimerWorkerManager | null>(null);
 
   useEffect(() => {
-    worker.onmessage(e => {
-      const countDownSeconds = e.data;
-
-      if (countDownSeconds <= 0) {
-        if (playBeepRef.current) {
-          playBeepRef.current();
-          playBeepRef.current = null;
-        }
-        dispatch({
-          type: TaskActionTypes.COMPLETE_TASK,
-        });
-        
-      } else {
-        dispatch({
-          type: TaskActionTypes.COUNT_DOWN,
-          payload: { secondsRemaining: countDownSeconds },
-        });
+    if (!state.activeTask) {
+      if (workerRef.current) {
+        workerRef.current.terminate();
+        workerRef.current = null;
       }
-    });
-  }, [worker]);
-
-  useEffect(() => {
-  localStorage.setItem('state', JSON.stringify(state));
-    if (!state.activeTask) {
-  worker.postMessage('STOP');
-  return;
-}
-  document.title = `${state.formattedSecondsRemaining} - Chronos Pomodoro`;
-    self.postMessage(state);
-  }, [worker, state]);
-
-  useEffect(() => {
-    if (!state.activeTask) {
-      playBeepRef.current = null;
       return;
     }
 
-    if (playBeepRef.current === null) {
-      const play = loadBeep();
-      playBeepRef.current = play;
-      // Safari: primeiro play ainda “perto” do clique em Iniciar ajuda a destravar autoplay depois.
-      play();
+    if (!workerRef.current) {
+      workerRef.current = TimerWorkerManager.getInstance();
+      workerRef.current.onmessage(e => {
+        const countDownSeconds = e.data;
+
+        if (countDownSeconds <= 0) {
+          if (playBeepRef.current) {
+            playBeepRef.current();
+            playBeepRef.current = null;
+          }
+          dispatch({
+            type: TaskActionTypes.COMPLETE_TASK,
+          });
+          workerRef.current?.terminate();
+          workerRef.current = null;
+        } else {
+          dispatch({
+            type: TaskActionTypes.COUNT_DOWN,
+            payload: { secondsRemaining: countDownSeconds },
+          });
+        }
+      });
+    }
+
+    workerRef.current.postMessage(state);
+  }, [state]);
+
+  useEffect(() => {
+    localStorage.setItem('state', JSON.stringify(state));
+    document.title = `${state.formattedSecondsRemaining} - Meowdoro`;
+  }, [state]);
+
+  useEffect(() => {
+    if (state.activeTask && playBeepRef.current === null) {
+      playBeepRef.current = loadBeep();
+    } else {
+      playBeepRef.current = null;
     }
   }, [state.activeTask]);
 

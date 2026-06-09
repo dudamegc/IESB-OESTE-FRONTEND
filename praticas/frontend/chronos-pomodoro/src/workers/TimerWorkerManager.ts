@@ -1,14 +1,4 @@
-import type { TaskModel } from '../models/TaskModel';
-
-export type TimerWorkerMessage =
-  | {
-      type: 'START';
-      activeTask: TaskModel;
-      secondsRemaining: number;
-    }
-  | {
-      type: 'STOP';
-    };
+import type { TaskStateModel } from "../models/TaskStateModel";
 
 let instance: TimerWorkerManager | null = null;
 
@@ -27,7 +17,7 @@ export class TimerWorkerManager {
     return instance;
   }
 
-  postMessage(message: TimerWorkerMessage | 'STOP') {
+  postMessage(message: TaskStateModel) {
     this.worker.postMessage(message);
   }
 
