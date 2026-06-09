@@ -1,10 +1,11 @@
-import styles from "./styles.module.css"
+import styles from './styles.module.css';
+import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
 
-// 2. Aplicamos o tipo ao parâmetro da função (props: logoProps)
 export function CountDown() {
+  // Puxamos apenas o 'state' de dentro do nosso contexto
+  const { state } = useTaskContext();
+
   return (
-    <div className={styles.container}>
-     00:00
-    </div>
+    <div className={styles.container}>{state.formattedSecondsRemaining}</div>
   );
 }

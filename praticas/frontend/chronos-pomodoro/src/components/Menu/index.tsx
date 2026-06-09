@@ -1,60 +1,72 @@
-import { HistoryIcon, HouseIcon, SettingsIcon, SunIcon } from 'lucide-react';
+import {
+  HistoryIcon,
+  HouseIcon,
+  MoonIcon,
+  SettingsIcon,
+  SunIcon,
+} from 'lucide-react';
 import styles from './styles.module.css';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { RouterLink } from '../RouterLink';
 
-// Tipagem restrita: O tema SÓ pode ser 'dark' ou 'light'
 type AvailableThemes = 'dark' | 'light';
 
 export function Menu() {
-  const [theme, setTheme] = useState<AvailableThemes>('dark');
+  const [theme, setTheme] = useState<AvailableThemes>(() => {
+    const storageTheme =
+      (localStorage.getItem('theme') as AvailableThemes) || 'dark';
+    return storageTheme;
+  });
 
-  // Tipagem do evento de clique em um link (âncora) no React
+  const nextThemeIcon = {
+    dark: <SunIcon />,
+    light: <MoonIcon />,
+  };
+
   function handleThemeChange(
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
   ) {
-    event.preventDefault(); // Impede que o navegador siga o link (href='#')
+    event.preventDefault();
 
     setTheme(prevTheme => {
-      return prevTheme === 'dark' ? 'light' : 'dark';
-    })
+      const nextTheme = prevTheme === 'dark' ? 'light' : 'dark';
+      return nextTheme;
+    });
   }
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-
-    return () => {
-      console.log('Limpando efeito anterior...');
-    };
+    localStorage.setItem('theme', theme);
   }, [theme]);
+
   return (
     <nav className={styles.menu}>
-      
-
-      <a
+      <RouterLink
         className={styles.menuLink}
-        href='#'
+        href='/'
         aria-label='Ir para a Home'
         title='Ir para a Home'
       >
         <HouseIcon />
-      </a>
+      </RouterLink>
 
-      <a
+      <RouterLink
         className={styles.menuLink}
-        href='#'
+        href='/history/'
         aria-label='Ver Histórico'
         title='Ver Histórico'
       >
         <HistoryIcon />
-      </a>
+      </RouterLink>
 
-      <a
+      <RouterLink
         className={styles.menuLink}
-        href='#'
+        href='/settings/'
         aria-label='Configurações'
         title='Configurações'
       >
         <SettingsIcon />
-      </a>
+      </RouterLink>
 
       <a
         className={styles.menuLink}
@@ -63,7 +75,7 @@ export function Menu() {
         title='Mudar Tema'
         onClick={handleThemeChange}
       >
-        <SunIcon />
+        {nextThemeIcon[theme]}
       </a>
     </nav>
   );
