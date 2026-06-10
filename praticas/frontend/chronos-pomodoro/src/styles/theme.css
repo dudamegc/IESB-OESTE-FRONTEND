@@ -8,13 +8,16 @@
   --gray-700: #272f43;
   --gray-800: #181f2e;
   --gray-900: #0a0f1a;
+  --green-light: #93966a;
+  --creme: #ffe6c6;
+  --text: #0a0f1a;
 
-  --primary-light: #4de7b7;
-  --primary: #0da170;
-  --primary-dark: #065f46;
+  --primary-light: #f5be77;
+  --primary: #fdcb92;
+  --primary-dark: #fc9841;
 
-  --link-color: #10b981;
-  --link-hover: #0b8a60;
+  --link-color: #fc9841;
+  --link-hover: #d86500;
 
   --success: #22c55e;
   --warning: #eab308;
@@ -34,4 +37,48 @@
 
   --disabled: #555f7d;
   --text-disabled: #aab3cc;
+}
+
+/* Quando a tag :root (html) tiver o atributo data-theme='light', 
+   essas variáveis irão sobrescrever as variáveis padrão (dark)! */
+:root[data-theme='light'] {
+  --gray-100: #0a0f1a;
+  --gray-200: #181f2e;
+  --gray-300: #272f43;
+  --gray-400: #363d56;
+  --gray-500: #454f6a;
+  --gray-600: #555f7d;
+  --gray-700: #aab3cc;
+  --gray-800: #cdd3e1;
+  --gray-900: #e6e9f0;
+  --text: #0a0f1a;
+
+  --primary-light: #f5be77;
+  --primary: #93966a;
+  --primary-dark: #944500;
+
+  --text-default: #0a0f1a;
+  --text-muted: #272f43;
+
+  --link-color: #fd851b;
+  --link-hover: #944500;
+
+
+
+/* Cores do Toastify (notificações) */
+--toastify-color-light: var(--text-default);
+--toastify-color-dark: var(--text-default);
+--toastify-color-info: var(--info);
+--toastify-color-success: var(--success);
+--toastify-color-warning: var(--warning);
+--toastify-color-error: var(--error);
+--toastify-text-color-light: #0a0f1a;
+--toastify-text-color-dark: #e6e9f0;
+--toastify-color-progress-light: var(--primary);
+--toastify-color-progress-dark: var(--primary);
+
+/*  Toastify no modo claro */
+--toastify-text-color-light: #e6e9f0;
+--toastify-text-color-dark: #e6e9f0;
+
 }
