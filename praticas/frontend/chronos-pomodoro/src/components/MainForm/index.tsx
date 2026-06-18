@@ -43,15 +43,20 @@ export function MainForm() {
       type: nextCyleType,
     };
 
-    dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
-    showMessage.success("Tarefa iniciada");
+  try {
+  console.log("Criando task:", newTask);
 
-    try {
-      await createTask(newTask);
-    } catch {
-      showMessage.error("A tarefa iniciou, mas não foi persistida na API");
-    }
-  }
+  await createTask(newTask);
+
+  console.log("Task criada na API");
+
+  dispatch({
+    type: TaskActionTypes.START_TASK,
+    payload: newTask,
+  });
+} catch (error) {
+  console.error("Erro ao criar task:", error);
+}}
 
   async function handleInterruptTask() {
     showMessage.dismiss();
@@ -75,7 +80,7 @@ export function MainForm() {
     <form onSubmit={handleCreateNewTask} className="form" action="">
       <div className="formRow">
         <DefaultInput
-          labelText="task"
+          labelText="Tarefa:"
           id="meuInput"
           type="text"
           placeholder="Digite algo"
